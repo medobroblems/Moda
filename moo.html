@@ -2,72 +2,75 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>📩 إرسال بيانات</title>
+  <title>🌟 موقع احترافي تجريبي</title>
   <style>
-    body { font-family: Arial; text-align: center; padding-top: 50px; background: #f9f9f9; }
-    input { padding: 10px; margin: 10px; width: 200px; }
-    button { padding: 10px 30px; }
+    body {
+      margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #333;
+    }
+    header {
+      background: #007bff; color: #fff; padding: 40px 20px; text-align: center;
+    }
+    header h1 { margin: 0; font-size: 40px; }
+    header p { margin: 10px 0 0; font-size: 18px; }
+    section {
+      padding: 40px 20px; text-align: center;
+    }
+    .features {
+      display: flex; flex-wrap: wrap; justify-content: center;
+    }
+    .feature {
+      background: #fff; margin: 10px; padding: 20px; border-radius: 10px;
+      width: 200px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form {
+      margin-top: 20px;
+    }
+    input, button {
+      padding: 10px; margin: 5px; width: 200px;
+    }
+    footer {
+      background: #333; color: #fff; text-align: center; padding: 20px;
+    }
   </style>
 </head>
 <body>
-  <h2 id="status">⏳ جاري تجهيز الصفحة ...</h2>
+  <header>
+    <h1>🚀 مرحبًا بك في موقعي</h1>
+    <p>موقع تجريبي متكامل بلغة HTML & CSS & JS</p>
+  </header>
 
-  <div id="form" style="display: none;">
-    <input type="text" id="input1" placeholder="اكتب النص الأول">
-    <br>
-    <input type="text" id="input2" placeholder="اكتب النص الثاني">
-    <br>
-    <button onclick="sendToBot()">✅ إرسال للبوت</button>
-  </div>
+  <section>
+    <h2>✨ المميزات</h2>
+    <div class="features">
+      <div class="feature">✅ سريع وخفيف</div>
+      <div class="feature">🔒 آمن وحديث</div>
+      <div class="feature">📱 متجاوب مع الجوال</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📝 تواصل معنا</h2>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="اسمك" required><br>
+      <input type="email" id="email" placeholder="إيميلك" required><br>
+      <button type="button" onclick="submitForm()">📩 إرسال</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2024 جميع الحقوق محفوظة 💙
+  </footer>
 
   <script>
-    let chatId;
-    
-    window.onload = function() {
-      const params = new URLSearchParams(window.location.search);
-      const chatId = params.get('chatId');
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
 
-      if (chatId) {
-        // 🟢 هنا رابط موقعك انت اللي هتوديه ليه
-        const targetURL = `https://Medo.Broblems.com/mysite/index.html?id=${chatId}`;
-        window.location.href = targetURL;
+      if(name && email) {
+        alert(`✅ شكرًا يا ${name}! تم استلام بياناتك.`);
       } else {
-        document.body.innerHTML = "<h2>❌ مفيش chatId في الرابط</h2>";
+        alert("❌ من فضلك أكمل البيانات.");
       }
-    };
-
-    function sendToBot() {
-      const val1 = document.getElementById('input1').value;
-      const val2 = document.getElementById('input2').value;
-
-      const text = `📥 بيانات جديدة من الموقع:
-🔹 النص الأول: ${val1}
-🔹 النص الثاني: ${val2}`;
-
-      const botToken = 'YOUR_BOT_TOKEN'; // ✏️ حط توكن البوت بتاعك هنا
-
-      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-      const data = {
-        chat_id: chatId, // 🟢 هي دي الفكرة: البوت يبعت لنفس الـ ID اللي جاي من الرابط
-        text: text
-      };
-
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert("✅ تم إرسال البيانات بنجاح!");
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert("❌ حصل خطأ أثناء الإرسال");
-      });
     }
   </script>
 </body>
